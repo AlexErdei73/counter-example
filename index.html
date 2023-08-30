@@ -3,17 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./public/favicon.ico" />
     <title>Counter Example</title>
+    <script src="./index.js" type="module"></script>
   </head>
   <body>
     <h1>Counter Example</h1>
-    <div id="counter">
-      <h2 id="value"></h2>
-      <h2 id="increment-heading"></h2>
-      <input type="number" id="increment-input" />
-      <br />
-      <button type="button" id="count">Count</button>
-    </div>
-    <script src="index.js"></script>
+    <div id="counters-container"></div>
+
+    <template>
+      <div class="counter">
+        <h2 id="value"></h2>
+        <h2 id="increment-heading"></h2>
+        <input type="number" id="increment-input" />
+        <br />
+        <button type="button">Count</button>
+      </div>
+    </template>
   </body>
 </html>

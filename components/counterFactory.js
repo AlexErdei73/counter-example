@@ -11,7 +11,8 @@ function counterFactory(counterState, newCounterState, parentNode) {
   const counterIncrementHeading = component.querySelector(
     "[partid=increment-heading]"
   );
-  const counterButton = component.querySelector("button");
+  const counterButton = component.querySelector("[partid=btn-count]");
+  const deleteButton = component.querySelector("[partid=btn-delete]");
 
   function init() {
     counterValue.textContent = `Value: ${counterState.value}`;
@@ -20,6 +21,11 @@ function counterFactory(counterState, newCounterState, parentNode) {
 
     counterButton.addEventListener("click", function () {
       newCounterState.value = counterState.value + counterState.increment;
+    });
+
+    deleteButton.addEventListener("click", function () {
+      newCounterState = null;
+      component.remove();
     });
 
     counterIncrementInput.addEventListener("change", function (event) {
@@ -33,6 +39,7 @@ function counterFactory(counterState, newCounterState, parentNode) {
   }
 
   function renderKey(key) {
+    if (!newCounterState) return;
     if (counterState[key] === newCounterState[key]) return false;
     counterState[key] = newCounterState[key];
     return true;

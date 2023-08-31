@@ -53,8 +53,17 @@ function handleAddCounter() {
 
 newCounterButton.addEventListener("click", handleAddCounter);
 
+function render() {
+  const deletedCounterIndex = newState.counters.indexOf(null);
+  if (deletedCounterIndex === -1) return;
+  state.counters.splice(deletedCounterIndex, 1);
+  newState.counters.splice(deletedCounterIndex, 1);
+  counters.splice(deletedCounterIndex, 1);
+}
+
 setInterval(function () {
+  render();
   counters.forEach((counter) => {
     counter.render();
   });
-}, 20);
+}, 0);

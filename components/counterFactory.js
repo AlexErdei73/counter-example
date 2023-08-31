@@ -38,7 +38,7 @@ function counterFactory(counterState, newCounterState, parentNode) {
     return true;
   }
 
-  const render = {
+  const renders = {
     value: () => {
       if (renderKey("value")) {
         counterValue.textContent = `Value: ${counterState.value}`;
@@ -51,6 +51,12 @@ function counterFactory(counterState, newCounterState, parentNode) {
       }
     },
   };
+
+  function render() {
+    for (const key in counterState) {
+      renders[key]();
+    }
+  }
 
   return {
     component,

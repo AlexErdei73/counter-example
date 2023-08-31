@@ -33,9 +33,7 @@ state.counters.forEach((counter, i) => {
 });
 
 setInterval(function () {
-  state.counters.forEach((counter, i) => {
-    for (const key in counter) {
-      counters[i].render[key]();
-    }
+  counters.forEach((counter) => {
+    counter.render();
   });
 }, 20);

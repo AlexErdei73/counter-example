@@ -1,4 +1,5 @@
 import countersFactory from "./components/countersFactory.js";
+import displayFactory from "./components/displayFactory.js";
 
 const state = {
   counters: [
@@ -17,4 +18,8 @@ const state = {
   ],
 };
 
-countersFactory(state.counters);
+const display = displayFactory(state.counters);
+display.update();
+countersFactory(state.counters, display);
+
+//setInterval(() => console.log(state.counters), 200);

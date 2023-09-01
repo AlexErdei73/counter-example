@@ -20,12 +20,14 @@ function counterFactory(counterState, parent) {
     counterButton.addEventListener("click", function () {
       counterState.value = counterState.value + counterState.increment;
       counterValue.textContent = counterState.value;
+      parent.display.update();
     });
 
     deleteButton.addEventListener("click", function () {
       counterState = null;
       component.remove();
       parent.deleteCounter();
+      parent.display.update();
     });
 
     counterIncrementInput.addEventListener("change", function (event) {

@@ -63,7 +63,5 @@ function render() {
 
 setInterval(function () {
   render();
-  counters.forEach((counter) => {
-    counter.render();
-  });
+  counters.forEach((counter) => counter.render());
 }, 0);

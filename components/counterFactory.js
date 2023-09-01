@@ -4,15 +4,11 @@ function counterFactory(counterState, newCounterState, parentNode) {
   const component = document.importNode(counter, true);
   parentNode.appendChild(component);
 
-  const counterValue = component.querySelector("[partid=value]");
-  const counterIncrementInput = component.querySelector(
-    "[partid=increment-input]"
-  );
-  const counterIncrementHeading = component.querySelector(
-    "[partid=increment-heading]"
-  );
-  const counterButton = component.querySelector("[partid=btn-count]");
-  const deleteButton = component.querySelector("[partid=btn-delete]");
+  const counterValue = component.querySelector(".counter .value");
+  const counterIncrementInput = component.querySelector("input.increment");
+  const counterIncrementHeading = component.querySelector("h2.increment");
+  const counterButton = component.querySelector("button.count");
+  const deleteButton = component.querySelector("button.delete");
 
   function init() {
     counterValue.textContent = `Value: ${counterState.value}`;

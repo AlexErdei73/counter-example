@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="./public/favicon.ico" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Counter Example</title>
     <script src="./index.js" type="module"></script>
   </head>
@@ -11,17 +12,21 @@
     <h1>Counter Example</h1>
 
     <div id="counters-container">
-      <button id="new-counter">New counter</button>
+      <div id="button-container">
+        <button id="new-counter">New counter</button>
+      </div>
     </div>
 
     <template>
       <div class="counter">
         <div class="value">Value: <output></output></div>
         <div class="increment">Increment: <output></output></div>
-        <input type="number" class="increment" />
-        <br />
+        <label>
+          Increment:
+          <input type="number" class="increment" id="inc" />
+        </label>
         <button type="button" class="count">Count</button>
-        <button tyle="button" class="delete">Delete</button>
+        <button tyle="button" class="delete" area-label="delete">X</button>
       </div>
     </template>
   </body>

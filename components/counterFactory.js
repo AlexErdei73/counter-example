@@ -1,4 +1,4 @@
-function counterFactory(counterState, newCounterState, parentNode) {
+function counterFactory(counterState, parentNode) {
   const temp = document.querySelectorAll("template")[0];
   const counter = temp.content.querySelector(".counter");
   const component = document.importNode(counter, true);
@@ -18,46 +18,28 @@ function counterFactory(counterState, newCounterState, parentNode) {
     counterIncrementOutput.textContent = counterState.increment;
 
     counterButton.addEventListener("click", function () {
-      newCounterState.value = counterState.value + counterState.increment;
+      counterState.value = counterState.value + counterState.increment;
+      counterValue.textContent = counterState.value;
     });
 
     deleteButton.addEventListener("click", function () {
-      newCounterState = null;
+      counterState = null;
       component.remove();
     });
 
     counterIncrementInput.addEventListener("change", function (event) {
-      const newIncrement = +event.target.value;
-      if (!newIncrement) {
-        newCounterState.increment = 0;
+      const increment = +event.target.value;
+      if (!increment) {
+        counterState.increment = 0;
         return;
       }
-      newCounterState.increment = newIncrement;
+      counterState.increment = increment;
+      counterIncrementOutput.textContent = counterState.increment;
     });
-  }
-
-  function renderKey(key) {
-    if (!newCounterState) return;
-    if (counterState[key] === newCounterState[key]) return;
-    counterState[key] = newCounterState[key];
-    component.querySelector(`.counter .${key} output`).textContent =
-      counterState[key];
-  }
-
-  const renders = {
-    value: () => renderKey("value"),
-    increment: () => renderKey("increment"),
-  };
-
-  function render() {
-    for (const key in counterState) {
-      renders[key]();
-    }
   }
 
   return {
     init,
-    render,
   };
 }
 

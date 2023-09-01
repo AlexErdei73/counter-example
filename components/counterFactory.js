@@ -25,6 +25,7 @@ function counterFactory(counterState, parent) {
     deleteButton.addEventListener("click", function () {
       counterState = null;
       component.remove();
+      parent.deleteCounter();
     });
 
     counterIncrementInput.addEventListener("change", function (event) {

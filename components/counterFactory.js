@@ -4,16 +4,18 @@ function counterFactory(counterState, newCounterState, parentNode) {
   const component = document.importNode(counter, true);
   parentNode.appendChild(component);
 
-  const counterValue = component.querySelector(".counter .value");
+  const counterValue = component.querySelector(".counter .value output");
   const counterIncrementInput = component.querySelector("input.increment");
-  const counterIncrementHeading = component.querySelector("h2.increment");
+  const counterIncrementOutput = component.querySelector(
+    ".counter .increment output"
+  );
   const counterButton = component.querySelector("button.count");
   const deleteButton = component.querySelector("button.delete");
 
   function init() {
-    counterValue.textContent = `Value: ${counterState.value}`;
+    counterValue.textContent = counterState.value;
     counterIncrementInput.value = counterState.increment;
-    counterIncrementHeading.textContent = `Increment: ${counterState.increment}`;
+    counterIncrementOutput.textContent = counterState.increment;
 
     counterButton.addEventListener("click", function () {
       newCounterState.value = counterState.value + counterState.increment;
@@ -36,23 +38,15 @@ function counterFactory(counterState, newCounterState, parentNode) {
 
   function renderKey(key) {
     if (!newCounterState) return;
-    if (counterState[key] === newCounterState[key]) return false;
+    if (counterState[key] === newCounterState[key]) return;
     counterState[key] = newCounterState[key];
-    return true;
+    component.querySelector(`.counter .${key} output`).textContent =
+      counterState[key];
   }
 
   const renders = {
-    value: () => {
-      if (renderKey("value")) {
-        counterValue.textContent = `Value: ${counterState.value}`;
-      }
-    },
-    increment: () => {
-      if (renderKey("increment")) {
-        counterIncrementInput.value = counterState.increment;
-        counterIncrementHeading.textContent = `Increment: ${counterState.increment}`;
-      }
-    },
+    value: () => renderKey("value"),
+    increment: () => renderKey("increment"),
   };
 
   function render() {
@@ -62,7 +56,6 @@ function counterFactory(counterState, newCounterState, parentNode) {
   }
 
   return {
-    component,
     init,
     render,
   };

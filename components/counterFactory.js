@@ -1,8 +1,8 @@
-function counterFactory(counterState, parentNode) {
+function counterFactory(counterState, parent) {
   const temp = document.querySelectorAll("template")[0];
   const counter = temp.content.querySelector(".counter");
   const component = document.importNode(counter, true);
-  parentNode.appendChild(component);
+  parent.node.appendChild(component);
 
   const counterValue = component.querySelector(".counter .value output");
   const counterIncrementInput = component.querySelector("input.increment");

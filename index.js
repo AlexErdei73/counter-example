@@ -17,27 +17,33 @@ const state = {
   ],
 };
 
-const countersContainer = document.querySelector("#counters-container");
-const newCounterButton = document.querySelector("#new-counter");
+(function countersFactory(countersState) {
+  const node = document.querySelector("#counters-container");
+  const newCounterButton = document.querySelector("#new-counter");
 
-const counters = [];
-state.counters.forEach((counter, i) => {
-  counter = counterFactory(state.counters[i], countersContainer);
-  counter.init();
-  counters[i] = counter;
-});
+  const instance = { node };
 
-function handleAddCounter() {
-  state.counters.push({
-    value: 0,
-    increment: 1,
+  const counters = [];
+  countersState.forEach((counter, i) => {
+    counter = counterFactory(state.counters[i], instance);
+    counter.init();
+    counters[i] = counter;
   });
-  const newCounter = counterFactory(
-    state.counters[state.counters.length - 1],
-    countersContainer
-  );
-  newCounter.init();
-  counters.push(newCounter);
-}
 
-newCounterButton.addEventListener("click", handleAddCounter);
+  function handleAddCounter() {
+    state.counters.push({
+      value: 0,
+      increment: 1,
+    });
+    const newCounter = counterFactory(
+      state.counters[state.counters.length - 1],
+      instance
+    );
+    newCounter.init();
+    counters.push(newCounter);
+  }
+
+  newCounterButton.addEventListener("click", handleAddCounter);
+
+  return instance;
+})(state.counters);

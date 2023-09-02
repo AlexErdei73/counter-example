@@ -24,10 +24,9 @@ function counterFactory(counterState, parent) {
     });
 
     deleteButton.addEventListener("click", function () {
-      counterState = null;
+      counterState.value = null;
       component.remove();
       parent.deleteCounter();
-      parent.display.update();
     });
 
     counterIncrementInput.addEventListener("change", function (event) {

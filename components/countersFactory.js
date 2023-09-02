@@ -6,15 +6,16 @@ function countersFactory(countersState, display) {
 
   const counters = [];
   function deleteCounter() {
-    const index = countersState.indexOf(null);
-    counters.splice(index - 1, 1);
-    countersState.splice(index - 1, 1);
+    const index = countersState.map((counter) => counter.value).indexOf(null);
+    counters.splice(index, 1);
+    countersState.splice(index, 1);
+    display.update();
   }
 
   const instance = { node, display, deleteCounter };
 
-  countersState.forEach((counter, i) => {
-    counter = counterFactory(countersState[i], instance);
+  countersState.forEach((counterState, i) => {
+    const counter = counterFactory(counterState, instance);
     counter.init();
     counters[i] = counter;
   });

@@ -1,16 +1,16 @@
-function counterFactory(counterState, parent) {
+function counterFactory(counterState, parent, index) {
   const temp = document.querySelectorAll("template")[0];
   const counter = temp.content.querySelector(".counter");
-  const component = document.importNode(counter, true);
-  parent.node.appendChild(component);
+  const node = document.importNode(counter, true);
+  parent.node.appendChild(node);
 
-  const counterValue = component.querySelector(".counter .value output");
-  const counterIncrementInput = component.querySelector("input.increment");
-  const counterIncrementOutput = component.querySelector(
+  const counterValue = node.querySelector(".counter .value output");
+  const counterIncrementInput = node.querySelector("input.increment");
+  const counterIncrementOutput = node.querySelector(
     ".counter .increment output"
   );
-  const counterButton = component.querySelector("button.count");
-  const deleteButton = component.querySelector("button.delete");
+  const counterButton = node.querySelector("button.count");
+  const deleteButton = node.querySelector("button.delete");
 
   function init() {
     counterValue.textContent = counterState.value;
@@ -23,11 +23,7 @@ function counterFactory(counterState, parent) {
       parent.display.update();
     });
 
-    deleteButton.addEventListener("click", function () {
-      counterState.value = null;
-      component.remove();
-      parent.deleteCounter();
-    });
+    deleteButton.setAttribute("data-index", index);
 
     counterIncrementInput.addEventListener("change", function (event) {
       const increment = +event.target.value;
@@ -41,6 +37,7 @@ function counterFactory(counterState, parent) {
   }
 
   return {
+    node,
     init,
   };
 }
